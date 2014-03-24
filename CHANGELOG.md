@@ -1,4 +1,5 @@
 # [develop](https://github.com/adhearsion/punchblock)
+  * Feature: Implement redirect command on Asterisk
   * Bugfix: Ensure DTMF recognisers get shut down when finishing
 
 # [v2.5.0](https://github.com/adhearsion/punchblock/compare/v2.4.2...v2.5.0) - [2014-03-05](https://rubygems.org/gems/punchblock/versions/2.5.0)
