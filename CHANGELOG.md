@@ -1,3 +1,7 @@
+# [ifbyphone-develop]
+  * Bugfix: Register/lookup components by their full URI rather than component ID since the component ID may only be unique per call (cherry-pick from mainline)
+  * Bugfix: Hold back Virtus dependency to avoid API-breaking changes (cherry-pick from mainline)
+
 # [develop](https://github.com/adhearsion/punchblock)
   * Feature: Support RubySpeech builtin grammars on Asterisk and FreeSWITCH
   * Bugfix: Reject commands against components which have finished on Asterisk, and garbage collect them
