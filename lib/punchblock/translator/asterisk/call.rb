@@ -212,20 +212,7 @@ module Punchblock
           when Punchblock::Component::Input
             execute_component Component::Input, command
           when Punchblock::Component::Prompt
-            component_class = case command.input.recognizer
-            when 'unimrcp'
-              case command.output.renderer
-              when 'unimrcp'
-                Component::MRCPPrompt
-              when 'asterisk'
-                Component::MRCPNativePrompt
-              else
-                raise InvalidCommandError, 'Invalid recognizer/renderer combination'
-              end
-            else
-              Component::ComposedPrompt
-            end
-            execute_component component_class, command
+            execute_component Component::MRCPPrompt, command
           when Punchblock::Component::Record
             execute_component Component::Record, command
           else
