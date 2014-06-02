@@ -239,7 +239,7 @@ module Punchblock
             when 'asterisk'
               Component::MRCPNativePrompt
             else
-              fail InvalidCommandError, 'Invalid recognizer/renderer combination'
+              raise InvalidCommandError, 'Invalid recognizer/renderer combination'
             end
           else
             Component::ComposedPrompt
