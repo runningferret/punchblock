@@ -86,10 +86,13 @@ module Punchblock
             when '000'
               nlsml = RubySpeech.parse URI.decode(@call.channel_var('RECOG_RESULT'))
               Punchblock::Component::Input::Complete::Match.new nlsml: nlsml
-            when '001', '015'
+            when '001'
               Punchblock::Component::Input::Complete::NoMatch.new
             when '002'
               Punchblock::Component::Input::Complete::NoInput.new
+            when '015'
+              pb_logger.debug "Recieved a response code of 015! Call was #{@call.inspect}"
+              Punchblock::Component::Input::Complete::NoMatch.new
             end
           end
         end
