@@ -86,7 +86,7 @@ module Punchblock
             when '000'
               nlsml = RubySpeech.parse URI.decode(@call.channel_var('RECOG_RESULT'))
               Punchblock::Component::Input::Complete::Match.new nlsml: nlsml
-            when '001'
+            when '001', '015'
               Punchblock::Component::Input::Complete::NoMatch.new
             when '002'
               Punchblock::Component::Input::Complete::NoInput.new
