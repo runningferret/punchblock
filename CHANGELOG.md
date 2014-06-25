@@ -2,6 +2,7 @@
   * Bugfix: Register/lookup components by their full URI rather than component ID since the component ID may only be unique per call (cherry-pick from mainline)
   * Bugfix: Hold back Virtus dependency to avoid API-breaking changes (cherry-pick from mainline)
   * Feature: Support `:native_or_unimrcp` renderer when using `:unimrcp` recognizer for ASR
+  * Bugfix: Support response code `'015'` from MRCP Recog Prompts (new versions of Lumenvox (correctly) respond with this in some cases)
 
 # [develop](https://github.com/adhearsion/punchblock)
   * Feature: Support RubySpeech builtin grammars on Asterisk and FreeSWITCH
