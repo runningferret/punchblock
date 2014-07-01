@@ -9,6 +9,8 @@ module Punchblock
         module MRCPRecogPrompt
           UniMRCPError = Class.new Punchblock::Error
 
+          DEFAULT_UNIMRCP_APP_OPTIONS = { uer: 1, b: 0, nit: -1, dit: -1}.freeze
+
           def execute
             setup_defaults
             validate
@@ -42,17 +44,36 @@ module Punchblock
           end
 
           def unimrcp_app_options
-            {uer: 1, b: (@component_node.barge_in == false ? 0 : 1)}.tap do |opts|
-              opts[:nit] = @initial_timeout if @initial_timeout > -1
-              opts[:dit] = @inter_digit_timeout if @inter_digit_timeout > -1
-              opts[:dttc] = input_node.terminator if input_node.terminator
-              yield opts
-            end
+            opts        = DEFAULT_UNIMRCP_APP_OPTIONS.dup
+            opts[:b]    = 1 if @component_node.barge_in
+            opts[:nit]  = @initial_timeout if @initial_timeout > -1
+            opts[:dit]  = @inter_digit_timeout if @inter_digit_timeout > -1
+            opts[:dttc] = @terminator  if @terminator
+            opts[:sl]   = @sensitivity if @sensitivity
+            return opts
+          end
+
+          def set_sensitivity
+            @sensitivity = input_node.sensitivity
+          end
+
+          def set_terminator
+            @terminator = input_node.terminator
+          end
+
+          def set_initial_timeout
+            @initial_timeout = input_node.initial_timeout || -1
+          end
+
+          def set_inter_digit_timeout
+            @inter_digit_timeout = input_node.inter_digit_timeout || -1
           end
 
           def setup_defaults
-            @initial_timeout = input_node.initial_timeout || -1
-            @inter_digit_timeout = input_node.inter_digit_timeout || -1
+            set_initial_timeout
+            set_inter_digit_timeout
+            set_sensitivity
+            set_terminator
           end
 
           def grammars
