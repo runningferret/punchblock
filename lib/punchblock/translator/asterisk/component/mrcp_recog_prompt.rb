@@ -9,7 +9,7 @@ module Punchblock
         module MRCPRecogPrompt
           UniMRCPError = Class.new Punchblock::Error
 
-          DEFAULT_UNIMRCP_APP_OPTIONS = { uer: 1, b: 0, nit: -1, dit: -1}.freeze
+          DEFAULT_UNIMRCP_APP_OPTIONS = { uer: 1, b: 0, t: 5000, nit: -1, dit: -1}.freeze
 
           def execute
             setup_defaults
@@ -46,8 +46,9 @@ module Punchblock
           def unimrcp_app_options
             opts        = DEFAULT_UNIMRCP_APP_OPTIONS.dup
             opts[:b]    = 1 if @component_node.barge_in
-            opts[:nit]  = @initial_timeout if @initial_timeout > -1
-            opts[:dit]  = @inter_digit_timeout if @inter_digit_timeout > -1
+            opts[:t]    = @recognition_timeout
+            opts[:nit]  = @initial_timeout
+            opts[:dit]  = @inter_digit_timeout
             opts[:dttc] = @terminator  if @terminator
             opts[:sl]   = @sensitivity if @sensitivity
             return opts
@@ -61,6 +62,10 @@ module Punchblock
             @terminator = input_node.terminator
           end
 
+          def set_recognition_timeout
+            @recognition_timeout = input_node.recognition_timeout || -1
+          end
+
           def set_initial_timeout
             @initial_timeout = input_node.initial_timeout || -1
           end
@@ -70,6 +75,7 @@ module Punchblock
           end
 
           def setup_defaults
+            set_recognition_timeout
             set_initial_timeout
             set_inter_digit_timeout
             set_sensitivity
