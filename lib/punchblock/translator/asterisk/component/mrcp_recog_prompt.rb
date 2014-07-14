@@ -9,7 +9,7 @@ module Punchblock
         module MRCPRecogPrompt
           UniMRCPError = Class.new Punchblock::Error
 
-          DEFAULT_UNIMRCP_APP_OPTIONS = { uer: 1, b: 0, t: 5000, nit: -1, dit: -1}.freeze
+          DEFAULT_UNIMRCP_APP_OPTIONS = { uer: 1, b: 0, nit: -1, dit: -1}.freeze
 
           def execute
             setup_defaults
