@@ -34,6 +34,7 @@ module Punchblock
               raise OptionError, "A #{opt} value is unsupported on Asterisk." if output_node.send opt
             end
 
+            raise OptionError, "A recognition-timeout value must be a positive integer."  if @recognition_timeout && @recognition_timeout < 1
             raise OptionError, "An initial-timeout value must be -1 or a positive integer." if @initial_timeout < -1
             raise OptionError, "An inter-digit-timeout value must be -1 or a positive integer." if @inter_digit_timeout < -1
           end
@@ -46,7 +47,7 @@ module Punchblock
           def unimrcp_app_options
             opts        = DEFAULT_UNIMRCP_APP_OPTIONS.dup
             opts[:b]    = 1 if @component_node.barge_in
-            opts[:t]    = @recognition_timeout
+            opts[:t]    = @recognition_timeout if @recognition_timeout
             opts[:nit]  = @initial_timeout
             opts[:dit]  = @inter_digit_timeout
             opts[:dttc] = @terminator  if @terminator
@@ -63,7 +64,7 @@ module Punchblock
           end
 
           def set_recognition_timeout
-            @recognition_timeout = input_node.recognition_timeout || -1
+            @recognition_timeout = input_node.recognition_timeout
           end
 
           def set_initial_timeout
