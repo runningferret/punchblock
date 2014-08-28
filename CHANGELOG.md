@@ -4,6 +4,8 @@
   * Feature: Support `:native_or_unimrcp` renderer when using `:unimrcp` recognizer for ASR
   * Bugfix: Support response code `'015'` from MRCP Recog Prompts (new versions of Lumenvox (correctly) respond with this in some cases)
   * Bugfix: Support passing a `'Recognition-Timeout'` flag to UniMRCP; necessary to handle shorter default settings in recognition engines like Lumenvox
+  * Bugfix: Restore mainline defaults for UniMRCP settings
+  * Feature: Allow passing multiple ssml documents and audiofiles to UniMRCP (requires UniMRCP revision >= r2153)
 
 # [develop](https://github.com/adhearsion/punchblock)
   * Feature: Support RubySpeech builtin grammars on Asterisk and FreeSWITCH
