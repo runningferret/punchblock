@@ -87,6 +87,10 @@ module Punchblock
           end
 
           def complete
+            if @call.channel_var('RECOG_STATUS') == 'INTERRUPTED'
+              return Punchblock::Component::Input::Complete::NoMatch.new
+            end
+
             send_complete_event case @call.channel_var('RECOG_COMPLETION_CAUSE')
             when '000'
               nlsml = RubySpeech.parse URI.decode(@call.channel_var('RECOG_RESULT'))
