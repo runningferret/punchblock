@@ -7,6 +7,7 @@
   * Bugfix: Restore mainline defaults for UniMRCP settings
   * Feature: Allow passing multiple ssml documents and audiofiles to UniMRCP (requires UniMRCP revision >= r2153)
   * Bugfix: Handle a corner case crach where a recognition request is interrupted directly after a successful recognition has completed
+  * Feature: Enable setting 'Dtmf-Term-Timeout' value for UniMRCP; necessary to exit sooner from successful Lumenvox recognition event
 
 # [develop](https://github.com/adhearsion/punchblock)
   * Feature: Support RubySpeech builtin grammars on Asterisk and FreeSWITCH
