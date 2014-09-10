@@ -92,20 +92,20 @@ module Punchblock
             raise UniMRCPError if recog_status == 'ERROR'
 
             if recog_status == 'INTERRUPTED'
-              return Punchblock::Component::Input::Complete::NoMatch.new
-            end
-
-            send_complete_event case @call.channel_var('RECOG_COMPLETION_CAUSE')
-            when '000'
-              nlsml = RubySpeech.parse URI.decode(@call.channel_var('RECOG_RESULT'))
-              Punchblock::Component::Input::Complete::Match.new nlsml: nlsml
-            when '001'
-              Punchblock::Component::Input::Complete::NoMatch.new
-            when '002'
-              Punchblock::Component::Input::Complete::NoInput.new
-            when '015'
-              pb_logger.debug "Recieved a response code of 015! Call was #{@call.inspect}"
-              Punchblock::Component::Input::Complete::NoMatch.new
+              send_complete_event Punchblock::Component::Input::Complete::NoMatch.new
+            else
+              send_complete_event case @call.channel_var('RECOG_COMPLETION_CAUSE')
+              when '000'
+                nlsml = RubySpeech.parse URI.decode(@call.channel_var('RECOG_RESULT'))
+                Punchblock::Component::Input::Complete::Match.new nlsml: nlsml
+              when '001'
+                Punchblock::Component::Input::Complete::NoMatch.new
+              when '002'
+                Punchblock::Component::Input::Complete::NoInput.new
+              when '015'    
+                pb_logger.debug "Recieved a response code of 015! Call was #{@call.inspect}"   
+                Punchblock::Component::Input::Complete::NoMatch.new
+              end
             end
           end
         end
