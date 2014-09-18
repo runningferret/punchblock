@@ -9,6 +9,7 @@
   * Bugfix: Handle a corner case crash where a recognition request is interrupted directly after a successful recognition has completed
   * Feature: Enable setting 'Dtmf-Term-Timeout' value for UniMRCP; necessary to exit sooner from successful Lumenvox recognition event
   * Feature: Enable setting 'Speech-Complete-Timeout' value for UniMRCP; necessary to allow additional input after an initial match has been recognized
+  * Bugfix: Avoid cases where executing AGI commands (reported as sending SIP messages) might block indefinitely due to a race condition in fetching their response value
 
 # [develop](https://github.com/adhearsion/punchblock)
   * Feature: Support RubySpeech builtin grammars on Asterisk and FreeSWITCH
