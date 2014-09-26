@@ -20,7 +20,8 @@ module Punchblock
                     :initial_timeout      => 2000,
                     :inter_digit_timeout  => 2000,
                     :sensitivity          => 0.5,
-                    :min_confidence       => 0.5
+                    :min_confidence       => 0.5,
+                    :speech_complete_timeout => 1000
         end
 
         its(:grammars)            { should be == [Input::Grammar.new(:value => '[5 DIGITS]', :content_type => 'application/grammar+custom')] }
@@ -33,6 +34,7 @@ module Punchblock
         its(:inter_digit_timeout) { should be == 2000 }
         its(:sensitivity)         { should be == 0.5 }
         its(:min_confidence)      { should be == 0.5 }
+        its(:speech_complete_timeout) { should be == 1000 }
 
         context "with multiple grammars" do
           subject do
@@ -75,6 +77,7 @@ module Punchblock
             new_instance.inter_digit_timeout.should be == 2000
             new_instance.sensitivity.should be == 0.5
             new_instance.min_confidence.should be == 0.5
+            new_instance.speech_complete_timeout.should be == 1000
           end
 
           it "should wrap the grammar value in CDATA" do
@@ -104,7 +107,8 @@ module Punchblock
        initial-timeout="2000"
        inter-digit-timeout="2000"
        sensitivity="0.5"
-       min-confidence="0.5">
+       min-confidence="0.5"
+       speech-complete-timeout="1000">
   <grammar content-type="application/grammar+custom">
     <![CDATA[ [5 DIGITS] ]]>
   </grammar>
@@ -129,6 +133,7 @@ module Punchblock
         its(:inter_digit_timeout) { should be == 2000 }
         its(:sensitivity)         { should be == 0.5 }
         its(:min_confidence)      { should be == 0.5 }
+        its(:speech_complete_timeout) { should be == 1000 }
 
         context "without any grammars" do
           let(:stanza) { '<input xmlns="urn:xmpp:rayo:input:1"/>' }
