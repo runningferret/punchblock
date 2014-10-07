@@ -33,8 +33,8 @@ module Punchblock
             end
 
             raise OptionError, "A recognition-timeout value must be a positive integer."  if @recognition_timeout && @recognition_timeout < 1
-            raise OptionError, "A speech-complete-timeout value must be a positive integer."  if @speech_complete_timeout && @speech_complete_timeout < 0
-            raise OptionError, "A speech-incomplete-timeout value must be -1 or a positive integer."  if @speech_incomplete_timeout && @speech_incomplete_timeout < 0
+            raise OptionError, "A speech-complete-timeout value must be a positive integer."  if @speech_complete_timeout && @speech_complete_timeout < -1
+            raise OptionError, "A speech-incomplete-timeout value must be -1 or a positive integer."  if @speech_incomplete_timeout && @speech_incomplete_timeout < -1
             raise OptionError, "An initial-timeout value must be -1 or a positive integer." if @initial_timeout < -1
             raise OptionError, "An inter-digit-timeout value must be -1 or a positive integer." if @inter_digit_timeout < -1
           end
@@ -53,8 +53,8 @@ module Punchblock
               opts[:ct] = input_node.min_confidence if input_node.min_confidence
               opts[:sl] = input_node.sensitivity if input_node.sensitivity
               opts[:t]  = input_node.recognition_timeout if @recognition_timeout
-              opts[:sct] = input_node.speech_complete_timeout if @speech_complete_timeout
-              opts[:sint] = input_node.speech_incomplete_timeout if @speech_incomplete_timeout
+              opts[:sct] = input_node.speech_complete_timeout if @speech_complete_timeout > -1
+              opts[:sint] = input_node.speech_incomplete_timeout if @speech_incomplete_timeout > -1
               yield opts
             end
           end
