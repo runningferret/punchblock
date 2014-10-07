@@ -21,7 +21,8 @@ module Punchblock
                     :inter_digit_timeout  => 2000,
                     :sensitivity          => 0.5,
                     :min_confidence       => 0.5,
-                    :speech_complete_timeout => 1000
+                    :speech_complete_timeout => 1000,
+                    :speech_incomplete_timeout => 1000
         end
 
         its(:grammars)            { should be == [Input::Grammar.new(:value => '[5 DIGITS]', :content_type => 'application/grammar+custom')] }
@@ -78,6 +79,7 @@ module Punchblock
             new_instance.sensitivity.should be == 0.5
             new_instance.min_confidence.should be == 0.5
             new_instance.speech_complete_timeout.should be == 1000
+            new_instance.speech_incomplete_timeout.should be == 1000
           end
 
           it "should wrap the grammar value in CDATA" do

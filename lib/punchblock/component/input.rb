@@ -41,7 +41,10 @@ module Punchblock
       attribute :recognition_timeout, Integer
 
       # @return [Integer] Indicates the length of time additional input may be accepted following a match before returning the result.
-      attribute :speech_complete_timeout, Integer 
+      attribute :speech_complete_timeout, Integer
+
+      # @return [Integer] Indicates the length of time additional input may be accepted following a partial match before finalizing and returning the result.
+      attribute :speech_incomplete_timeout, Integer
 
       attribute :grammars, Array, default: []
       def grammars=(others)
@@ -77,7 +80,8 @@ module Punchblock
           'inter-digit-timeout' => inter_digit_timeout,
           'dtmf-term-timeout' => dtmf_term_timeout,
           'recognition-timeout' => recognition_timeout,
-          'speech-complete-timeout' => speech_complete_timeout
+          'speech-complete-timeout' => speech_complete_timeout,
+          'speech-incomplete-timeout' => speech_incomplete_timeout
         }
       end
 
