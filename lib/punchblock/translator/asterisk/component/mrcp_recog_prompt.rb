@@ -32,9 +32,9 @@ module Punchblock
               raise OptionError, "A #{opt} value is unsupported on Asterisk." if output_node.send opt
             end
 
-            raise OptionError, "A recognition-timeout value must be a positive integer." if @recognition_timeout && @recognition_timeout < 1
-            raise OptionError, "A speech-complete-timeout value must be a positive integer." if @speech_complete_timeout && @speech_complete_timeout < -1
-            raise OptionError, "A speech-incomplete-timeout value must be -1 or a positive integer." if @speech_incomplete_timeout && @speech_incomplete_timeout < -1
+            raise OptionError, "A recognition-timeout value must be a positive integer." if @recognition_timeout < 1
+            raise OptionError, "A speech-complete-timeout value must be a positive integer." if @speech_complete_timeout < -1
+            raise OptionError, "A speech-incomplete-timeout value must be -1 or a positive integer." if @speech_incomplete_timeout < -1
             raise OptionError, "An initial-timeout value must be -1 or a positive integer." if @initial_timeout < -1
             raise OptionError, "An inter-digit-timeout value must be -1 or a positive integer." if @inter_digit_timeout < -1
           end
@@ -62,8 +62,8 @@ module Punchblock
           def setup_defaults
             @initial_timeout = input_node.initial_timeout || -1
             @inter_digit_timeout = input_node.inter_digit_timeout || -1
-            @recognition_timeout = input_node.recognition_timeout
-            @speech_complete_timeout = input_node.speech_complete_timeout
+            @recognition_timeout = input_node.recognition_timeout || -1
+            @speech_complete_timeout = input_node.speech_complete_timeout || -1
             @speech_incomplete_timeout = input_node.speech_incomplete_timeout || -1
           end
 
