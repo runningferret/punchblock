@@ -61,7 +61,7 @@ module Punchblock
             @initial_timeout = input_node.initial_timeout || -1
             @inter_digit_timeout = input_node.inter_digit_timeout || -1
             @recognition_timeout = input_node.recognition_timeout || -1
-            @speech_complete_timeout = input_node.speech_complete_timeout || 0
+            @speech_complete_timeout = input_node.speech_complete_timeout
           end
 
           def grammars
